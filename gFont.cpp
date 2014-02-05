@@ -6,7 +6,7 @@
 #include "gFont.h"
 
 /************************************************************************************************
-* инициализация шрифта                                                                          *
+* Font initialization                                                                           *
 ************************************************************************************************/
 void cFont::Init(char *filename)
 {
@@ -38,22 +38,22 @@ void cFont::Init(char *filename)
 }
 
 /************************************************************************************************
-* загрузка шрифта                                                                               *
+* Load font from BMP file                                                                       *
 ************************************************************************************************/
 void cFont::LoadFromBMP(char *filename)
 {
     AUX_RGBImageRec *texture1;
     texture1 = auxDIBImageLoad(filename);
 
-    // создание текстуры
+    // texture generation
     glGenTextures(1, &Texture);
     glBindTexture(GL_TEXTURE_2D, Texture);
 
-    // установка типов фильтрации текстур
+    // Set texture filters
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-    // непосредственное создание текстуры
+    // texture creation
     glTexImage2D(GL_TEXTURE_2D, 0, 3, texture1->sizeX, texture1->sizeY, 0, GL_RGB, GL_UNSIGNED_BYTE, texture1->data);
 
     free(texture1->data);
@@ -61,7 +61,7 @@ void cFont::LoadFromBMP(char *filename)
 }
 
 /************************************************************************************************
-* установка текущего цвета шрифта                                                               *
+* Font color initialization                                                                     *
 ************************************************************************************************/
 void cFont::SetColor(float r, float g, float b, float a)
 {
@@ -72,7 +72,7 @@ void cFont::SetColor(float r, float g, float b, float a)
 }
 
 /************************************************************************************************
-* вывод строки на экран                                                                         *
+* Message printing on scren                                                                     *
 ************************************************************************************************/
 void cFont::Print(float x, float y, char *string, float k)
 {
@@ -100,7 +100,7 @@ void cFont::Print(float x, float y, char *string, float k)
 }
 
 /************************************************************************************************
-* вывод строки с параметрами на экран                                                           *
+* Message printing on scren with parameters                                                     *
 ************************************************************************************************/
 void cFont::OutText(float x, float y, float scale, const char *fmt, ...)
 {
@@ -115,7 +115,7 @@ void cFont::OutText(float x, float y, float scale, const char *fmt, ...)
 }
 
 /************************************************************************************************
-* уничтожение шрифта                                                                            *
+* Font deinitialization                                                                         *
 ************************************************************************************************/
 void cFont::Kill()
 {

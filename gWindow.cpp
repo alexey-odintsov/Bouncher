@@ -6,7 +6,7 @@
 #include "gWindow.h"
 
 /************************************************************************************************
-* конструктор                                                                                   *
+* Constructor                                                                                   *
 ************************************************************************************************/
 cWindow::cWindow()
 {
@@ -19,7 +19,7 @@ cWindow::cWindow()
 }
 
 /************************************************************************************************
-* создание окна                                                                                 *
+* Window creation                                                                               *
 ************************************************************************************************/
 int cWindow::Create(char *title, int width, int height, int bpp, bool fullscreen, HINSTANCE hinstance)
 {
@@ -45,7 +45,7 @@ int cWindow::Create(char *title, int width, int height, int bpp, bool fullscreen
     WndClass.lpszClassName  = this->Title;
     WndClass.lpszMenuName   = NULL;
 
-    if (!RegisterClass(&WndClass)) ErrorMessage("Создание окна:", "Не удалось зарегистрировать класс окна!\n");
+    if (!RegisterClass(&WndClass)) ErrorMessage("Window creation:", "Can't register window class!\n");
 
     if (this->isFullscreen==true)
     {
@@ -67,7 +67,7 @@ int cWindow::Create(char *title, int width, int height, int bpp, bool fullscreen
 
     this->hWnd = CreateWindow(this->Title, this->Title, dwStyle, 0, 0, this->Width, this->Height, NULL, NULL, this->hInstance, NULL);
 
-    if (this->hWnd==NULL) ErrorMessage("Создание окна:", "Не удалось создать окно!\n");
+    if (this->hWnd==NULL) ErrorMessage("Window creation:", "Can't create window!\n");
 
     ShowWindow(this->hWnd, SW_SHOWNORMAL);
     UpdateWindow(this->hWnd);
@@ -79,15 +79,15 @@ int cWindow::Create(char *title, int width, int height, int bpp, bool fullscreen
 }
 
 /************************************************************************************************
-* инициализация OpenGL                                                                          *
+* OpenGL Initialization                                                                         *
 ************************************************************************************************/
 int cWindow::InitOpenGL()
 {
     this->hDC = GetDC(this->hWnd);
     this->SetPixFormat();
     this->hRC = wglCreateContext(this->hDC);
-    if (!this->hRC) ErrorMessage("Инициализация OpenGL:", "Не удалось создать контекст воспроизведения OpenGL!\n");
-    if (!wglMakeCurrent(this->hDC, this->hRC)) ErrorMessage("Инициализация OpenGL:", "Не удалось сделать контекст воспроизведения текущим!\n");
+    if (!this->hRC) ErrorMessage("OpenGL initialization:", "Can't create OpenGL context!\n");
+    if (!wglMakeCurrent(this->hDC, this->hRC)) ErrorMessage("OpenGL initialization:", "Can't set current OpenGL context!\n");
     this->UpdatePerspective(this->Width, this->Height);
 
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -99,13 +99,13 @@ int cWindow::InitOpenGL()
 }
 
 /************************************************************************************************
-* деинициализация OpenGL                                                                        *
+* OpenGL deinitialization                                                                       *
 ************************************************************************************************/
 int cWindow::DeinitOpenGL()
 {
     wglMakeCurrent(NULL, NULL);
-    if (!wglDeleteContext(this->hRC)) ErrorMessage("Деинициализация OpenGL:", "Не удалось удалить контекст воспроизведения OpenGL!\n");
-    if (!ReleaseDC(this->hWnd, this->hDC)) ErrorMessage("Деинициализация OpenGL:", "Не удалось освободить контекст устройства GDI!\n");
+    if (!wglDeleteContext(this->hRC)) ErrorMessage("OpenGL deinitialization:", "Can't delete OpenGL context!\n");
+    if (!ReleaseDC(this->hWnd, this->hDC)) ErrorMessage("OpenGL deinitialization:", "Can't release GDI context!\n");
     if (this->isFullscreen)
     {
         ChangeDisplaySettings(NULL, 0);
@@ -116,7 +116,7 @@ int cWindow::DeinitOpenGL()
 }
 
 /************************************************************************************************
-* уничтожение окна                                                                              *
+* Window closing                                                                                *
 ************************************************************************************************/
 int cWindow::Close()
 {
@@ -127,7 +127,7 @@ int cWindow::Close()
 }
 
 /************************************************************************************************
-* установка формата пикселей                                                                    *
+* Pixel format setting                                                                          *
 ************************************************************************************************/
 int cWindow::SetPixFormat()
 {
@@ -148,14 +148,14 @@ int cWindow::SetPixFormat()
 
     PixelFormat = ChoosePixelFormat(this->hDC, &pfd);
 
-    if (!PixelFormat) ErrorMessage("Установка формата пикселей:", "Не удалось выбрать формат пикселей\n");
-    if (!SetPixelFormat(this->hDC, PixelFormat, &pfd)) ErrorMessage("Установка формата пикселей:", "Не удалось установить формат пикселей\n");
+    if (!PixelFormat) ErrorMessage("Pixel format setting:", "Can't choose pixel fomat!\n");
+    if (!SetPixelFormat(this->hDC, PixelFormat, &pfd)) ErrorMessage("Pixel format setting:", "Can't set pixel format!\n");
 
     return 0;
 }
 
 /************************************************************************************************
-* включение полноэкранного режима                                                               *
+* Set fullscreen mode                                                                           *
 ************************************************************************************************/
 int cWindow::SizeToFullScreen()
 {
@@ -176,22 +176,22 @@ int cWindow::SizeToFullScreen()
         switch (ret)
         {
         case  DISP_CHANGE_RESTART:
-            ErrorMessage("Смена разрешения экрана:", "Для применения данных параметров необходимо перезаргузить компьютер!\n xres : %i \n yres : %i \n bpp : %i", this->Width, this->Height, this->Bpp);
+            ErrorMessage("Set fullscreen mode:", "You need to restart computer to apply this parameters!\n xres : %i \n yres : %i \n bpp : %i", this->Width, this->Height, this->Bpp);
             break;
         case  DISP_CHANGE_BADFLAGS:
-            ErrorMessage("Смена разрешения экрана:", "Недопустимый набор флагов!\n xres : %i \n yres : %i \n bpp : %i", this->Width, this->Height, this->Bpp);
+            ErrorMessage("Set fullscreen mode:", "Wrong flag set!\n xres : %i \n yres : %i \n bpp : %i", this->Width, this->Height, this->Bpp);
             break;
         case  DISP_CHANGE_BADPARAM:
-            ErrorMessage("Смена разрешения экрана:", "Недопустимые параметры!\n xres : %i \n yres : %i \n bpp : %i", this->Width, this->Height, this->Bpp);
+            ErrorMessage("Set fullscreen mode:", "Wrong parameters!\n xres : %i \n yres : %i \n bpp : %i", this->Width, this->Height, this->Bpp);
             break;
         case  DISP_CHANGE_FAILED:
-            ErrorMessage("Смена разрешения экрана:", "Графический адаптер не может определить данный режим!\n xres : %i \n yres : %i \n bpp : %i", this->Width, this->Height, this->Bpp);
+            ErrorMessage("Set fullscreen mode:", "Video adapter can't set selected mode!\n xres : %i \n yres : %i \n bpp : %i", this->Width, this->Height, this->Bpp);
             break;
         case  DISP_CHANGE_BADMODE:
-            ErrorMessage("Смена разрешения экрана:", "Графический режим не поддерживается!\n xres : %i \n yres : %i \n bpp : %i", this->Width, this->Height, this->Bpp);
+            ErrorMessage("Set fullscreen mode:", "Selected mode is not supported!\n xres : %i \n yres : %i \n bpp : %i", this->Width, this->Height, this->Bpp);
             break;
         case  DISP_CHANGE_NOTUPDATED:
-            ErrorMessage("Смена разрешения экрана:", "Не удается сохранить параметры в реестре!\n xres : %i \n yres : %i \n bpp : %i", this->Width, this->Height, this->Bpp);
+            ErrorMessage("Set fullscreen mode:", "Can't save parameters to registry!\n xres : %i \n yres : %i \n bpp : %i", this->Width, this->Height, this->Bpp);
             break;
         }
     }
@@ -200,7 +200,7 @@ int cWindow::SizeToFullScreen()
 }
 
 /************************************************************************************************
-* обновление перспективы                                                                        *
+* Perspective update                                                                            *
 ************************************************************************************************/
 void cWindow::UpdatePerspective(int width, int height)
 {

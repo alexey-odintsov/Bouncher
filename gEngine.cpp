@@ -6,7 +6,7 @@
 #include "gEngine.h"
 
 /************************************************************************************************
-* инициализация параметров мяча                                                                 *
+* Ball initialization                                                                           *
 ************************************************************************************************/
 void cBall::Init(vector3f pos, vector3f dir, float vel, float r)
 {
@@ -17,7 +17,7 @@ void cBall::Init(vector3f pos, vector3f dir, float vel, float r)
 }
 
 /************************************************************************************************
-* перемещение мяча вперед по направлению движения                                               *
+* Move ball forward                                                                             *
 ************************************************************************************************/
 void cBall::MoveForward()
 {
@@ -25,7 +25,7 @@ void cBall::MoveForward()
 }
 
 /************************************************************************************************
-* прорисовка мяча                                                                               *
+* Ball drawing                                                                                  *
 ************************************************************************************************/
 void cBall::Draw()
 {
@@ -37,7 +37,7 @@ void cBall::Draw()
 }
 
 /************************************************************************************************
-* инициализация параметров Bouncher'а                                                           *
+* Bouncher initialization                                                                       *
 ************************************************************************************************/
 void cBouncher::Init(vector3f pos, vector3f dir, float vel, float r, float size, unsigned int texture)
 {
@@ -50,7 +50,7 @@ void cBouncher::Init(vector3f pos, vector3f dir, float vel, float r, float size,
 }
 
 /************************************************************************************************
-* перемещение Bouncher'а                                                                        *
+* Bouncher moving                                                                               *
 ************************************************************************************************/
 void cBouncher::Move(float mx, float my, float mz)
 {
@@ -58,7 +58,7 @@ void cBouncher::Move(float mx, float my, float mz)
 }
 
 /************************************************************************************************
-* прорисовка Bouncher'а                                                                         *
+* Bouncher drawing                                                                              *
 ************************************************************************************************/
 void cBouncher::Draw()
 {
@@ -95,7 +95,7 @@ void cBouncher::Draw()
 }
 
 /************************************************************************************************
-* инициализация блока                                                                           *
+* Brick initialization                                                                          *
 ************************************************************************************************/
 void cBrick::Init(vector3f pos, char type)
 {
@@ -104,7 +104,7 @@ void cBrick::Init(vector3f pos, char type)
 }
 
 /************************************************************************************************
-* прорисовка блока                                                                              *
+* Brick drawing                                                                                 *
 ************************************************************************************************/
 void cBrick::Draw()
 {
@@ -115,7 +115,7 @@ void cBrick::Draw()
 }
 
 /************************************************************************************************
-* инициализация уровня                                                                          *
+* Level initialization                                                                          *
 ************************************************************************************************/
 void cLevel::Init(float width, float height)
 {
@@ -183,7 +183,7 @@ void cLevel::Init(float width, float height)
 }
 
 /************************************************************************************************
-* загрузка уровня из файла                                                                      *
+* Load level from file                                                                          *
 ************************************************************************************************/
 void cLevel::LoadFromFile(char *filename)
 {
@@ -192,7 +192,7 @@ void cLevel::LoadFromFile(char *filename)
 
     this->Number = 0;
     file = fopen(filename, "r");
-    if (file==NULL) MessageBox(0, "Не удалось открыть файл уровня!", "Ошибка", MB_OK | MB_ICONERROR);
+    if (file==NULL) MessageBox(0, "Can't open level file!", "Error", MB_OK | MB_ICONERROR);
     
     for (i=0; i<10; i++)
     {
@@ -212,7 +212,7 @@ void cLevel::LoadFromFile(char *filename)
 }
 
 /************************************************************************************************
-* прорисовка уровня                                                                             *
+* Level drawing                                                                                 *
 ************************************************************************************************/
 void cLevel::Draw()
 {
@@ -228,7 +228,7 @@ void cLevel::Draw()
 }
 
 /************************************************************************************************
-* уничтожение блока                                                                             *
+* Brick destroying                                                                              *
 ************************************************************************************************/
 void cLevel::KillBrick(int bx, int by)
 {
@@ -237,7 +237,7 @@ void cLevel::KillBrick(int bx, int by)
 }
 
 /************************************************************************************************
-* инициализация стен                                                                            *
+* Walls initialization                                                                          *
 ************************************************************************************************/
 void cWalls::Init(float width, float height, float size, int texture)
 {
@@ -250,7 +250,7 @@ void cWalls::Init(float width, float height, float size, int texture)
 		glBindTexture(GL_TEXTURE_2D, this->Texture);
 		glColor3f(1.0f, 1.0f, 1.0f);
 		glBegin(GL_QUADS);
-			// переднее ребро
+			// Front edge
 			glNormal3f( 0.0f, 0.0f, 1.0f);
 			glTexCoord2f(0.0f, 0.0f); glVertex3f(-this->Width/2,-this->Size/2, this->Height/2);
 			glTexCoord2f(1.0f, 0.0f); glVertex3f( this->Width/2,-this->Size/2, this->Height/2);
@@ -272,7 +272,7 @@ void cWalls::Init(float width, float height, float size, int texture)
 			glTexCoord2f(1.0f, 1.0f); glVertex3f( this->Width/2,           -this->Size/2, this->Height/2           );
 			glTexCoord2f(0.0f, 1.0f); glVertex3f(-this->Width/2,           -this->Size/2, this->Height/2           );
 
-			// заднее ребро
+			// Back edge
 			glTexCoord2f(0.0f, 0.0f); glVertex3f(-this->Width/2,-this->Size/2,-this->Height/2);
 			glTexCoord2f(1.0f, 0.0f); glVertex3f( this->Width/2,-this->Size/2,-this->Height/2);
 			glTexCoord2f(1.0f, 1.0f); glVertex3f( this->Width/2, this->Size/2,-this->Height/2);
@@ -293,7 +293,7 @@ void cWalls::Init(float width, float height, float size, int texture)
 			glTexCoord2f(1.0f, 1.0f); glVertex3f( this->Width/2,           -this->Size/2,-this->Height/2           );
 			glTexCoord2f(0.0f, 1.0f); glVertex3f(-this->Width/2,           -this->Size/2,-this->Height/2           );
 		
-			// левое ребро
+			// Left edge
 			glTexCoord2f(0.0f, 0.0f); glVertex3f(-this->Width/2,-this->Size/2,-this->Height/2);
 			glTexCoord2f(1.0f, 0.0f); glVertex3f(-this->Width/2,-this->Size/2, this->Height/2);
 			glTexCoord2f(1.0f, 1.0f); glVertex3f(-this->Width/2, this->Size/2, this->Height/2);
@@ -314,7 +314,7 @@ void cWalls::Init(float width, float height, float size, int texture)
 			glTexCoord2f(1.0f, 1.0f); glVertex3f(-this->Width/2,           -this->Size/2, this->Height/2           );
 			glTexCoord2f(0.0f, 1.0f); glVertex3f(-this->Width/2,           -this->Size/2,-this->Height/2           );
 
-			// правое ребро
+			// Right edge
 			glTexCoord2f(0.0f, 0.0f); glVertex3f( this->Width/2,-this->Size/2,-this->Height/2);
 			glTexCoord2f(1.0f, 0.0f); glVertex3f( this->Width/2,-this->Size/2, this->Height/2);
 			glTexCoord2f(1.0f, 1.0f); glVertex3f( this->Width/2, this->Size/2, this->Height/2);
@@ -336,11 +336,10 @@ void cWalls::Init(float width, float height, float size, int texture)
 			glTexCoord2f(0.0f, 1.0f); glVertex3f( this->Width/2,           -this->Size/2,-this->Height/2           );
 		glEnd();
 	glEndList();
-	// дописать прорисовку стен
 }
 
 /************************************************************************************************
-* прорисовка стен                                                                               *
+* Walls drawing                                                                                 *
 ************************************************************************************************/
 void cWalls::Draw()
 {
@@ -350,7 +349,7 @@ void cWalls::Draw()
 }
 
 /************************************************************************************************
-* инициализация SkyBox'а                                                                        *
+* SkyBox initialization                                                                         *
 ************************************************************************************************/
 void cSkyBox::Init(float size, int texture)
 {
@@ -396,7 +395,7 @@ void cSkyBox::Init(float size, int texture)
 }
 
 /************************************************************************************************
-* прорисовка SkyBox'а                                                                           *
+* SkyBox drawing                                                                                *
 ************************************************************************************************/
 void cSkyBox::Draw()
 {
@@ -408,7 +407,7 @@ void cSkyBox::Draw()
 }
 
 /************************************************************************************************
-* обнуление записи                                                                              *
+* Records zeroing                                                                               *
 ************************************************************************************************/
 void sRecord::Zero()
 {
@@ -418,7 +417,7 @@ void sRecord::Zero()
 }
 
 /************************************************************************************************
-* инициализация таблицы рекордов                                                                *
+* Records initialization                                                                        *
 ************************************************************************************************/
 cScores::cScores()
 {
@@ -431,7 +430,7 @@ cScores::cScores()
 }
 
 /************************************************************************************************
-* загрузка таблицы рекордов из файла                                                            *
+* Load records from file                                                                        *
 ************************************************************************************************/
 void cScores::LoadFromFile(char *filename)
 {
@@ -448,7 +447,7 @@ void cScores::LoadFromFile(char *filename)
 }
 
 /************************************************************************************************
-* сохранение таблицы рекордов в файл                                                            *
+* Save records to file                                                                          *
 ************************************************************************************************/
 void cScores::SaveToFile(char *filename)
 {
@@ -465,7 +464,7 @@ void cScores::SaveToFile(char *filename)
 }
 
 /************************************************************************************************
-* вставка текущей записи в таблицу рекордов                                                     *
+* Add new record                                                                                *
 ************************************************************************************************/
 void cScores::Insert(sRecord *record)
 {

@@ -6,7 +6,7 @@
 #include "gMain.h"
 
 /************************************************************************************************
-* инициализация данных                                                                          *
+* Data initialization                                                                           *
 ************************************************************************************************/
 void InitGameData()
 {
@@ -16,7 +16,7 @@ void InitGameData()
 	CurrentLevel	= 1;
 	CameraType		= 3;
 
-	Log("Загрузка текстур...");
+	Log("Texture loading...");
 	textbgIntro		= LoadTexture("data/images/bgintro.bmp");
 	textbgMainMenu	= LoadTexture("data/images/bgmenu.bmp");
 	textbgScores	= LoadTexture("data/images/bgscores.bmp");
@@ -24,7 +24,7 @@ void InitGameData()
 	textmenuNewGame	= LoadTexture("data/images/menunewgame.bmp");
 	textmenuScores	= LoadTexture("data/images/menuscores.bmp");
 	textmenuQuit	= LoadTexture("data/images/menuquit.bmp");
-	Log("ОК\n");
+	Log("OK\n");
 
 	Walls.Init(128.0f, 96.0f, 4.0f, LoadTexture("data/images/wall.bmp"));
 	Ball.Init(vInit(0.0f, 0.0f, 0.0f), vInit(0.5f, 0.0f, -0.7f), 0.12f, 1.5f);
@@ -34,19 +34,19 @@ void InitGameData()
 
 	SkyBox.Init(1000.0f, LoadTexture("data/images/sky.bmp"));
 	
-	Log("Загрузка шрифта...");
+	Log("Font loading...");
 	Font.Init("data/fonts/fnt1.bmp");
-	Log("ОК\n");
+	Log("OK\n");
 
-	Log("Загрузка таблицы рекордов...");
+	Log("Scores data loading...");
 	ScoreTable.LoadFromFile("data/score.dat");
-	Log("ОК\n");
+	Log("OK\n");
 
 	CharCount = 0;
 }
 
 /************************************************************************************************
-* деинициализация данных                                                                        *
+* Data deinitialization                                                                         *
 ************************************************************************************************/
 void DeinitGameData()
 {
@@ -55,7 +55,7 @@ void DeinitGameData()
 }
 
 /************************************************************************************************
-* инициализация новой игры                                                                      *
+* New game initialization                                                                       *
 ************************************************************************************************/
 void NewGame()
 {
@@ -69,7 +69,7 @@ void NewGame()
 }
 
 /************************************************************************************************
-* обработка событий вступления                                                                  *
+* Intro screen key processing                                                                   *
 ************************************************************************************************/
 void ProcessIntro()
 {
@@ -81,7 +81,7 @@ void ProcessIntro()
 }
 
 /************************************************************************************************
-* воспроизведение вступления                                                                    *
+* Intro screen rendering                                                                        *
 ************************************************************************************************/
 void RenderIntro()
 {
@@ -102,7 +102,7 @@ void RenderIntro()
 }
 
 /************************************************************************************************
-* обработка событий главного меню                                                               *
+* Main menu screen key processing                                                               *
 ************************************************************************************************/
 void ProcessMainMenu()
 {
@@ -154,7 +154,7 @@ void ProcessMainMenu()
 }
 
 /************************************************************************************************
-* прорисовка главного меню                                                                      *
+* Main menu scren rendering                                                                     *
 ************************************************************************************************/
 void RenderMainMenu()
 {
@@ -256,7 +256,7 @@ void RenderMainMenu()
 }
 
 /************************************************************************************************
-* воспроизведение игры                                                                          *
+* Game screen key processing                                                                    *
 ************************************************************************************************/
 void ProcessGame()
 {
@@ -313,7 +313,7 @@ void ProcessGame()
 		if ((Bouncher.Pos.x-Bouncher.Size/2)<-Walls.Width/2) Bouncher.Pos.x = -Walls.Width/2+Bouncher.Size/2;
 		if ((Bouncher.Pos.x+Bouncher.Size/2)>Walls.Width/2) Bouncher.Pos.x = Walls.Width/2-Bouncher.Size/2;
 
-		// проверка столеновений мяча и Bouncher'а
+		// Bouncher and ball collision detection
 		if ((Ball.Pos.x+Ball.R>=Bouncher.Pos.x-Bouncher.Size/2)	&&
 			(Ball.Pos.x-Ball.R<=Bouncher.Pos.x+Bouncher.Size/2)	&&
 			(Ball.Pos.z+Ball.R>=Bouncher.Pos.z-Bouncher.R)		&&
@@ -321,7 +321,7 @@ void ProcessGame()
 		{
 			Ball.Dir.z = -Ball.Dir.z;
 		}
-		// проверка столкновения мяча с блоками
+		// Ball and bricks collision detection
 		for (i=0; i<10; i++)
 		{
 			for (j=0; j<18; j++)
@@ -352,7 +352,7 @@ void ProcessGame()
 				}
 			}
 		}
-		// проверка столкновений мяча и стен
+		// Ball and walls collision detection
 		if ((Ball.Pos.x+Ball.R>=Walls.Width/2) | (Ball.Pos.x-Ball.R<=-Walls.Width/2))
 		{
 			Ball.Dir.x = -Ball.Dir.x;
@@ -373,7 +373,7 @@ void ProcessGame()
 }
 
 /************************************************************************************************
-* обработка событий игрового процесса                                                           *
+* Game screen rendering                                                                         *
 ************************************************************************************************/
 void RenderGame()
 {
@@ -424,7 +424,7 @@ void RenderGame()
 }
 
 /************************************************************************************************
-*                                                                                   *
+* Scores screen key processing                                                                  *
 ************************************************************************************************/
 void ProcessScores()
 {
@@ -436,7 +436,7 @@ void ProcessScores()
 }
 
 /************************************************************************************************
-* воспроизведение таблицы рекордов                                                              *
+* Scores screen rendering                                                                       *
 ************************************************************************************************/
 void RenderScores()
 {
@@ -460,7 +460,7 @@ void RenderScores()
 }
 
 /************************************************************************************************
-* обработка событий жиалога ввода имени                                                         *
+* Score's name dialog key processing                                                             *
 ************************************************************************************************/
 void ProcessNameDlg()
 {
@@ -494,7 +494,7 @@ void ProcessNameDlg()
 }
 
 /************************************************************************************************
-* воспроизведение диалога ввода имени                                                           *
+* Score's name dialog rendering                                                                 *
 ************************************************************************************************/
 void RenderNameDlg()
 {
@@ -516,7 +516,7 @@ void RenderNameDlg()
 }
 
 /************************************************************************************************
-* собственная функция обработки сообщений                                                       *
+* Window message processing                                                                     *
 ************************************************************************************************/
 LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
 {
@@ -546,24 +546,24 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam)
 }
 
 /************************************************************************************************
-* точка входа программы                                                                         *
+* Program entry point                                                                           *
 ************************************************************************************************/
 int WINAPI WinMain(HINSTANCE hinstance, HINSTANCE hprevinstance, LPSTR lpcmdline, int cmdshow)
 {
 	MSG	msg;
 	ClearLog();
-	Log("Создание окна...");
+	Log("Window creation...");
 	Window.Create("test", 1024, 768, 32, true, hinstance);
-	Log("ОК\n");
+	Log("OK\n");
 
-	Log("Инициализация OpenGL...");
+	Log("OpenGL initialization...");
 	Window.InitOpenGL();
-	Log("ОК\n");
+	Log("OK\n");
 
-	Log("Инициализация игровых данных...\n");
+	Log("Game data initialization...\n");
 	InitGameData();
 
-	Log("Начало цикла программы...\n");
+	Log("Game loop start...\n");
 	while (Window.isActive)
 	{
 		while (PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE))
