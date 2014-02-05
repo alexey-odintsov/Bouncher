@@ -1,0 +1,67 @@
+#ifndef GKEYCODESH
+#define GKEYCODESH
+
+const int key_backspace   = 0x08;
+const int key_tab         = 0x09;
+const int key_enter       = 0x0d;
+const int key_shift       = 0x10;
+const int key_ctrl        = 0x11;
+const int key_space       = 0x20;
+const int key_end         = 0x23;
+const int key_home        = 0x24;
+const int key_left        = 0x25;
+const int key_up          = 0x26;
+const int key_right       = 0x27;
+const int key_down        = 0x28;
+const int key_insert      = 0x2d;
+const int key_delete      = 0x2e;
+const int key_0           =0x30;
+const int key_1           =0x31;
+const int key_2           =0x32;
+const int key_3           =0x33;
+const int key_4           =0x34;
+const int key_5           =0x35;
+const int key_6           =0x36;
+const int key_7           =0x37;
+const int key_8           =0x38;
+const int key_9           =0x39;
+const int key_a           =0x41;
+const int key_b           =0x42;
+const int key_c           =0x43;
+const int key_d           =0x44;
+const int key_e           =0x45;
+const int key_f           =0x46;
+const int key_g           =0x47;
+const int key_h           =0x48;
+const int key_i           =0x49;
+const int key_j           =0x4a;
+const int key_k           =0x4b;
+const int key_l           =0x4c;
+const int key_m           =0x4d;
+const int key_n           =0x4e;
+const int key_o           =0x4f;
+const int key_p           =0x50;
+const int key_q           =0x51;
+const int key_r           =0x52;
+const int key_s           =0x53;
+const int key_t           =0x54;
+const int key_u           =0x55;
+const int key_v           =0x56;
+const int key_w           =0x57;
+const int key_x           =0x58;
+const int key_y           =0x59;
+const int key_z           =0x5a;
+const int key_f1          =0x70;
+const int key_f2          =0x71;
+const int key_f3          =0x72;
+const int key_f4          =0x73;
+const int key_f5          =0x74;
+const int key_f6          =0x75;
+const int key_f7          =0x76;
+const int key_f8          =0x77;
+const int key_f9          =0x78;
+const int key_f10         =0x79;
+const int key_f11         =0x7a;
+const int key_f12         =0x7b;
+
+#endif
